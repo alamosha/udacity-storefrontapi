@@ -5,6 +5,8 @@ import creds from "./creds";
 const app: express.Application = express();
 const port = parseInt(creds.port as string);
 
+app.use(express.json())
+
 app.get('/', (_req:express.Request, res:express.Response) => {
     // console.log(req);
     res.sendStatus(200)
