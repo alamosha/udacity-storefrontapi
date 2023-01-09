@@ -23,7 +23,7 @@ describe("Users Model Testing", () => {
       password: "MySuperSecurePassword",
     };
     beforeAll(async () => {
-      const testUser = await userModel.createUser(user);
+      await userModel.createUser(user);
     });
 
     it("Testing Create User model", async () => {

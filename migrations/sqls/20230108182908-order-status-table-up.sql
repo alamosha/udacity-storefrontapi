@@ -8,3 +8,5 @@ CREATE TABLE orders (
     user_id INT REFERENCES users(id),
     status INT REFERENCES order_status(id)
 );
+
+INSERT INTO order_status (id, status_name) VALUES (1, 'Active'), (2, 'Completed');

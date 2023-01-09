@@ -57,4 +57,29 @@ export class UserModel {
       throw new Error(`User with id ${id} cannot be found.`);
     }
   }
+
+  async authenticate(username: string, password: string): Promise<User | null> {
+    try {
+      const conn = await db.connect();
+      const sql = "SELECT password FROM users WHERE username = $1";
+      const result = await conn.query(sql, [username]);
+      if (result.rows.length) {
+        const validatePassword = bcrypt.compareSync(
+          (password + creds.bcryptPass) as string,
+          result.rows[0].password as string
+        );
+        if (validatePassword) {
+          const validateSql =
+            "SELECT id, username, first_name, last_name FROM users WHERE username = $1";
+          const validateResult = await conn.query(validateSql, [username]);
+          return validateResult.rows[0];
+        }
+      }
+      conn.release();
+      return null;
+      
+    } catch (err) {
+      throw new Error (`An error occured during authentication ${err}`)
+    }
+  }
 }
