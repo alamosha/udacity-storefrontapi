@@ -8,7 +8,7 @@ These are the notes from a meeting with the frontend developer that describe wha
 
 ## Users
 
-## Create a new user
+#### Create a new user
 [POST] `/create_user`
 
   ```bash
