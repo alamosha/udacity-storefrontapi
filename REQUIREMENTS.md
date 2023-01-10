@@ -224,7 +224,7 @@ Successful Response:
 ```
 
 2. List all orders
-[GET] `/orders` [token required]
+    [GET] `/orders` [token required]
 
 Successful Response
 
@@ -240,7 +240,7 @@ Successful Response
 ```
 
 3. List an order by its id
-[GET] `/order/<order id>` [token required]
+    [GET] `/order/<order id>` [token required]
 
 Successful Response
 
@@ -260,7 +260,7 @@ Successful Response
 ```
 
 4. Add items to an order
-[POST] `/order/<order id>/add` [token required]
+    [POST] `/order/<order id>/add` [token required]
 
 ```bash
 {
@@ -280,7 +280,7 @@ Successful Response
 ```
 
 5. Edit item inside an order
-[POST] `/order/<order id>/edit` [token required]
+    [POST] `/order/<order id>/edit` [token required]
 
 ```bash
 {
@@ -302,7 +302,7 @@ Successful Response
 ```
 
 6. Delete an item from order
-[DELETE] `/order/<item id>/delete_item` [token required]
+    [DELETE] `/order/<item id>/delete_item` [token required]
 
 Successful Response
 
@@ -316,7 +316,7 @@ Successful Response
 ```
 
 7. Delete a whole order
-[DELETE] `/order/4/delete_order` [token required]
+    [DELETE] `/order/4/delete_order` [token required]
 
 Successful Response
 
