@@ -8,33 +8,64 @@ These are the notes from a meeting with the frontend developer that describe wha
 
 ## Users
 
-#### Create a new user
+1. Create a new user
+
 [POST] `/create_user`
 
-  ```bash
-  {
-  "first_name": [User First Name],
-  "last_name": [User Last Name],
-  "username": [User Username],
-  "password": [User Password]
-  }
-  ```
-
-#### Update current user
-[POST] `/user/update` [token required]
 ```bash
 {
-    "username": [Username to change Its params],
-    "first_name"?: [New First Name],
-    "lastname"?: [New Second Name],
-    "password"?: [New Password]
+"first_name": <User First Name>,
+"last_name": <User Last Name>,
+"username": <User Username>,
+"password": <User Password>
+}
+```
+
+Successful Response:
+
+```bash
+  {
+    "username": {
+        "id": <user id>,
+        "username": <username>,
+        "first_name": <user first name>,
+        "last_name": <user last name>
+    },
+    "token": <generated token that will be used for authentication>
+}
+```
+
+2. Update current user
+
+[POST] `/user/update` [token required]
+
+```bash
+{
+    "username": <Username to change Its params>,
+    "first_name"?: <New First Name>,
+    "lastname"?: <New Second Name>,
+    "password"?: <New Password>
 }
 Note: Parameters appended with ? are optional, at least one of them are nessasery to complete the action.
 ```
 
+Successful Response:
 
-- Get all users [GET] `/users` [token required]
-- Get a specific user by its id [GET] `/user/<User ID>` [token required]
+```bash
+{
+    "username": <username>,
+    "first_name": <new first name>,
+    "last_name": <new last name>
+}
+```
+
+3. Get all users
+
+[GET] `/users` [token required]
+
+4. Get a specific user by its id
+
+[GET] `/user/<User ID>` [token required]
 
 #### Products
 
