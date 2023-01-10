@@ -121,7 +121,7 @@ Successful Response:
 {
     "name": <Product name>,
     "price": <product price>,
-    "category": <product category>
+    "category": <product category id>
 }
 ```
 
@@ -131,16 +131,82 @@ Successful Response:
 {
     "name": <Product name>,
     "price": <product price>,
-    "category": <product category>
+    "category": <product category id>
 }
 ```
 
-- Create a new product
-  app.get("/products", listProducts);
-  app.post("/create_product", create);
-  app.get("/product/:id", show);
-  app.post("/product/:id/update", update);
-  app.delete('/product/:id/delete', delProd)
+2. List all products
+   [GET] `/products`
+
+Successful Response:
+
+```bash
+[
+    {
+        "id": <Product id>,
+        "name": <Product name>,
+        "price": <Product price>,
+        "category": <Product category>
+    },
+]
+```
+
+4. Get a specific product by its id
+   [GET] `/product/<product id>`
+
+Successful Response:
+
+```bash
+{
+    "id": <Product id>,
+    "name": <Product name>,
+    "price": <Product price>,
+    "category_id": <Product category id>
+}
+```
+
+5. Update a specific product
+   [POST] `/product/<product id>/update` [token required]
+
+```bash
+{
+    "name"?: <new product name>,
+    "category"?: <new product category id>,
+    "price"?: <new price>
+}
+Note: Parameters appended with ? are optional, at least one of them are nessasery to complete the action.
+```
+
+Successful Response:
+
+```bash
+{
+    "id": <product id>,
+    "name": <new product name>,
+    "price": <new price>,
+    "category_id": <new product category id>
+}
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--app.get("/products", listProducts);
+--app.post("/create_product", create);
+app.get("/product/:id", show);
+app.post("/product/:id/update", update);
+app.delete('/product/:id/delete', delProd)
 
 ```
 
