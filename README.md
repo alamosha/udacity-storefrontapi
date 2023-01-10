@@ -65,6 +65,7 @@ All database schema has been created into sql files with db-migrations, you have
 ## application operation
 
 Here is how to operate and use the application:
+
 `yarn start` to start your application in pre-build mode (run typescript files)
 `yarn test` to build the application, than run all nessesary tests.
 `yarn watch` used to run application in watch mode (It will rebuild application and run on every file change)
