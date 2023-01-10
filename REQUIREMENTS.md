@@ -300,3 +300,30 @@ Successful Response
     "quantity": <item new quantity>
 }
 ```
+
+6. Delete an item from order
+[DELETE] `/order/<item id>/delete_item` [token required]
+
+Successful Response
+
+```bash
+{
+    "id": <deleted item id>,
+    "product_id": <product id>,
+    "order_id": <order id>,
+    "quantity": <quantity>
+}
+```
+
+7. Delete a whole order
+[DELETE] `/order/4/delete_order` [token required]
+
+Successful Response
+
+```bash
+{
+    "id": <order id>,
+    "user_id": <user id>,
+    "status": <status id>
+}
+```
