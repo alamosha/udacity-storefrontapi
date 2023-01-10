@@ -6,10 +6,10 @@ These are the notes from a meeting with the frontend developer that describe wha
 
 ## API Endpoints
 
-#### Users
+## Users
 
-- Create a new user: - [POST] `/create_user`
-  Parameters:
+## Create a new user
+[POST] `/create_user`
 
   ```bash
   {
