@@ -67,6 +67,16 @@ Successful Response:
 
 [GET] `/user/<User ID>` [token required]
 
+5. Delete a user
+
+[DELETE] `/user/delete` [token required]
+
+```bash
+{
+    "username": <username to be deleted>
+}
+```
+
 #### Products
 
 - Create a new product
