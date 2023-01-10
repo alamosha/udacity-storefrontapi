@@ -31,13 +31,17 @@ export class OrderModel {
   }
 
   async show(id: number): Promise<Order[]> {
-    const conn = await db.connect();
-    // const sql = "SELECT * FROM orders WHERE orders.id = $1";
-    const sql =
-      "SELECT order_products.id, order_products.order_id, orders.user_id, users.username, order_products.product_id, products.name AS product_name, order_products.quantity, order_status.status_name AS order_status FROM order_products INNER JOIN products ON order_products.product_id = products.id INNER JOIN orders ON order_products.order_id = orders.id INNER JOIN users ON orders.user_id = users.id INNER JOIN order_status ON orders.status = order_status.id WHERE order_products.order_id = $1";
-    const result = await conn.query(sql, [id]);
-    conn.release();
-    return result.rows;
+    try {
+      const conn = await db.connect();
+      // const sql = "SELECT * FROM orders WHERE orders.id = $1";
+      const sql =
+        "SELECT order_products.id, order_products.order_id, orders.user_id, users.username, order_products.product_id, products.name AS product_name, order_products.quantity, order_status.status_name AS order_status FROM order_products INNER JOIN products ON order_products.product_id = products.id INNER JOIN orders ON order_products.order_id = orders.id INNER JOIN users ON orders.user_id = users.id INNER JOIN order_status ON orders.status = order_status.id WHERE order_products.order_id = $1";
+      const result = await conn.query(sql, [id]);
+      conn.release();
+      return result.rows;
+    } catch (err) {
+      throw new Error(`Cannot view order ${err}`);
+    }
   }
 
   async initOrder(user: number, status: number): Promise<Order> {
@@ -113,8 +117,7 @@ export class OrderModel {
   async deleteItem(order_id: number): Promise<Order> {
     try {
       const conn = await db.connect();
-      const sql =
-        "DELETE FROM order_products WHERE id = $1 RETURNING *";
+      const sql = "DELETE FROM order_products WHERE id = $1 RETURNING *";
       const result = await conn.query(sql, [order_id]);
       conn.release();
       return result.rows[0];

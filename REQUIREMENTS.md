@@ -199,7 +199,7 @@ Successful Response:
 }
 ```
 
-## Products
+## Orders
 
 1. Create a new order
    [POST] `/create_order` [token required]
@@ -224,7 +224,7 @@ Successful Response:
 ```
 
 2. List all orders
-    [GET] `/orders` [token required]
+   [GET] `/orders` [token required]
 
 Successful Response
 
@@ -240,7 +240,7 @@ Successful Response
 ```
 
 3. List an order by its id
-    [GET] `/order/<order id>` [token required]
+   [GET] `/order/<order id>` [token required]
 
 Successful Response
 
@@ -260,7 +260,7 @@ Successful Response
 ```
 
 4. Add items to an order
-    [POST] `/order/<order id>/add` [token required]
+   [POST] `/order/<order id>/add` [token required]
 
 ```bash
 {
@@ -268,6 +268,7 @@ Successful Response
     "quantity": <quantity>
 }
 ```
+
 Successful Response
 
 ```bash
@@ -280,7 +281,7 @@ Successful Response
 ```
 
 5. Edit item inside an order
-    [POST] `/order/<order id>/edit` [token required]
+   [POST] `/order/<order id>/edit` [token required]
 
 ```bash
 {
@@ -302,7 +303,7 @@ Successful Response
 ```
 
 6. Delete an item from order
-    [DELETE] `/order/<item id>/delete_item` [token required]
+   [DELETE] `/order/<item id>/delete_item` [token required]
 
 Successful Response
 
@@ -316,7 +317,7 @@ Successful Response
 ```
 
 7. Delete a whole order
-    [DELETE] `/order/4/delete_order` [token required]
+   [DELETE] `/order/4/delete_order` [token required]
 
 Successful Response
 
@@ -327,3 +328,85 @@ Successful Response
     "status": <status id>
 }
 ```
+
+#### Product Categories
+
+1. List all categories
+   [GET] `/categories`
+
+Successful Response
+
+```bash
+[
+    {
+        "id": <Category id>,
+        "category_name": <Category name>
+    }
+]
+```
+
+2. List one category by id
+   [GET] `/category/<category id>`
+
+Successful Response
+
+```bash
+{
+    "id": <Category id>,
+    "category_name": <category name>
+}
+```
+
+3. Update Category by id
+   [POST] `/category/<category id>/update`
+
+```bash
+{
+    "category_name": <New Category Name>
+}
+```
+
+Successful Response
+
+```bash
+{
+    "id": <Category id>,
+    "category_name": <New Category Name>
+}
+```
+
+4. Create a new category
+[POST] `/create_category`
+
+```bash
+{
+    "category_name": <new category name>
+}
+```
+
+Successful Response
+
+```bash
+{
+    "id": 5,
+    "category_name": <new category name>
+}
+```
+
+5. Delete category
+[DELETE] `/category/<category id>/delete`
+
+Successful Response
+
+```bash
+{
+    "id": <deleted category id>,
+    "category_name": <deleted category name>
+}
+```
+
+#### Order Status
+
+Order status are already defined as following:
+<1> Active
+<2> Completed
