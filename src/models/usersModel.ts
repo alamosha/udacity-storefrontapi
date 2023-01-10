@@ -58,6 +58,54 @@ export class UserModel {
     }
   }
 
+  async updateUser(user: User): Promise<User | null> {
+    try {
+      if (!user.username) {
+        return null;
+      }
+      const conn = await db.connect();
+      const initSql =
+        "SELECT id, first_name, last_name FROM users WHERE username = $1";
+      const initResult = await conn.query(initSql, [user.username]);
+
+      const userName = user.username;
+      const firstName = user.first_name || initResult.rows[0].first_name;
+      const lastName = user.last_name || initResult.rows[0].last_name;
+      let sql;
+      let sqlQuery = [];
+      if (user.password) {
+        const hashPassword = bcrypt.hashSync(
+          user.password + creds.bcryptPass,
+          parseInt(creds.saltRounds as string)
+        );
+        sql =
+          "UPDATE users SET first_name = $1, last_name = $2, password = $4 WHERE username = $3 RETURNING username, first_name, last_name";
+        sqlQuery = [firstName, lastName, userName, hashPassword];
+      } else {
+        sql =
+          "UPDATE users SET first_name = $1, last_name = $2 WHERE username = $3 RETURNING username, first_name, last_name";
+        sqlQuery = [firstName, lastName, userName];
+      }
+      const result = await conn.query(sql, sqlQuery);
+      conn.release();
+      return result.rows[0];
+    } catch (err) {
+      throw new Error(`Cannot update user ${err}`);
+    }
+  }
+
+  async deleteUser (usermane: string):Promise<User> {
+    try {
+      const conn = await db.connect()
+      const sql = 'DELETE FROM users WHERE username = $1 RETURNING username, first_name, last_name'
+      const result = await conn.query(sql, [usermane])
+      conn.release()
+      return result.rows[0]
+    } catch (err) {
+      throw new Error (`Cannot Delete user ${err}`)
+    }
+  }
+
   async authenticate(username: string, password: string): Promise<User | null> {
     try {
       const conn = await db.connect();
@@ -77,9 +125,8 @@ export class UserModel {
       }
       conn.release();
       return null;
-      
     } catch (err) {
-      throw new Error (`An error occured during authentication ${err}`)
+      throw new Error(`An error occured during authentication ${err}`);
     }
   }
 }

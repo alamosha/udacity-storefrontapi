@@ -2,6 +2,7 @@ import express from "express";
 import creds from "./creds";
 import userRoutes from "./handlers/usersHandler";
 import productsRoutes from "./handlers/productsHandler";
+import ordersRoutes from "./handlers/ordersHandler";
 
 const app: express.Application = express();
 const port = parseInt(creds.port as string);
@@ -15,6 +16,7 @@ app.get("/", (_req: express.Request, res: express.Response) => {
 
 userRoutes(app);
 productsRoutes(app)
+ordersRoutes(app)
 
 app.listen(port, () => {
   console.log(`Server is now operational on port ${port}`);

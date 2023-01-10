@@ -1,19 +1,13 @@
 import supertest from "supertest";
 import app from "../server";
 import { UserModel } from "../models/usersModel";
-import { ProductModel } from "../models/productsModel";
 import db from "../database";
 
 const req = supertest(app);
 let token = "";
 const userModel = new UserModel();
-const productModel = new ProductModel();
 
 describe("Testing API endpoints", () => {
-  // it("Get / Endpoint", async () => {
-  //   const response = await req.get("/");
-  //   expect(response.statusCode).toBe(200);
-  // });
   const user = {
     username: "alam_othman",
     first_name: "Alam",
@@ -67,20 +61,43 @@ describe("Testing API endpoints", () => {
         .send({
           name: "Product from API Test",
           price: 199,
-          category: "1"
+          category: "1",
         });
-        expect(res.body.name).toBe("Product from API Test")
+      expect(res.body.name).toBe("Product from API Test");
     });
 
-    it('Testing /products Endpoint [GET]', async () => {
-      const res = await req.get('/products')
-      expect(res.status).toBe(200)
-    })
+    it("Testing /products Endpoint [GET]", async () => {
+      const res = await req.get("/products");
+      expect(res.status).toBe(200);
+    });
 
-    it('Testing /product/:id Endpoint [GET]', async () => {
-      const res = await req.get('/product/1')
-      expect(res.status).toBe(200)
-    })
+    it("Testing /product/:id Endpoint [GET]", async () => {
+      const res = await req.get("/product/1");
+      expect(res.status).toBe(200);
+    });
+  });
+
+  describe("Testing Orders endpoints", () => {
+    it("Testing /create_order Endpoint [POST]", async () => {
+      const res = await req
+        .post("/create_order")
+        .set("Content-Type", "application/json")
+        .set("Authorization", "Bearer " + token)
+        .send({
+          product_id: 1,
+          quantity: 50,
+          user_id: 1,
+        });
+      expect(res.body.quantity).toBe(50);
+    });
+
+    it("Testing /order/:id/delete_order Endpoint [DELETE]", async () => {
+      const res = await req
+        .delete("/order/1/delete_order")
+        .set("Content-Type", "application/json")
+        .set("Authorization", "Bearer " + token);
+      expect(res.status).toBe(200);
+    });
   });
 
   afterAll(async () => {

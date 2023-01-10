@@ -21,10 +21,9 @@ describe("Products Model Testing", () => {
       price: 50,
       category: "1",
     };
-    beforeAll(async () => {
-      await productModel.create(product);
-    });
-
+    // beforeAll(async () => {
+    //   await productModel.create(product);
+    // });
     it("Testing Create a new product model", async () => {
       const createProd = await productModel.create(product);
       expect(createProd.name).toBe("Test Product");
@@ -40,7 +39,7 @@ describe("Products Model Testing", () => {
 
     it("Testing list all products", async () => {
       const listProds = await productModel.index();
-      expect(listProds.length).toBe(2);
+      expect(listProds.length).toBe(1);
     });
 
     afterAll(async () => {

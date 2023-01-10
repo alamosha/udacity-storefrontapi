@@ -22,10 +22,9 @@ describe("Users Model Testing", () => {
       last_name: "Othman",
       password: "MySuperSecurePassword",
     };
-    beforeAll(async () => {
-      await userModel.createUser(user);
-    });
-
+    // beforeAll(async () => {
+    //   // await userModel.createUser(user);
+    // });
     it("Testing Create User model", async () => {
       const secondUser = {
         username: "test_user",
@@ -34,20 +33,21 @@ describe("Users Model Testing", () => {
         password: "MySuperSecurePassword",
       };
       const createdUser = await userModel.createUser(secondUser);
-      expect(createdUser.id).toBe(2);
+      expect(createdUser.id).toBe(1);
       expect(createdUser.username).toBe("test_user");
       expect(createdUser.first_name).toBe("Test");
       expect(createdUser.last_name).toBe("User");
     });
+
     it("testing index users model", async () => {
       const indexUsers = await userModel.index();
-      expect(indexUsers.length).toBe(2);
+      expect(indexUsers.length).toBe(1);
     });
     it("testing Show users model", async () => {
       const showUsers = await userModel.show("1");
-      expect(showUsers.first_name).toBe("Alam");
-      expect(showUsers.last_name).toBe("Othman");
-      expect(showUsers.username).toBe("alam_othman");
+      expect(showUsers.first_name).toBe("Test");
+      expect(showUsers.last_name).toBe("User");
+      expect(showUsers.username).toBe("test_user");
     });
 
     afterAll(async () => {

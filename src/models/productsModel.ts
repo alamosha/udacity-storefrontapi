@@ -1,14 +1,4 @@
 import db from "../database";
-import creds from "../creds";
-import bcrypt from "bcrypt";
-
-/*
-- Index 
-- Show
-- Create [token required]
-- [OPTIONAL] Top 5 most popular products 
-- [OPTIONAL] Products by category (args: product category)
-*/
 
 export type Product = {
   id?: number;
@@ -59,6 +49,38 @@ export class ProductModel {
       return result.rows[0];
     } catch (err) {
       throw new Error(`Cannot select Product with ID ${id}: ${err}`);
+    }
+  }
+
+  async updateProduct(prod: Product, id: number):Promise<Product>{
+    try {
+      const conn = await db.connect();
+      const initSql =
+        "SELECT name, price, category_id FROM products WHERE id = $1";
+      const initResult = await conn.query(initSql, [id]);
+
+      const prodName = prod.name || initResult.rows[0].name;
+      const prodPrice = prod.price || initResult.rows[0].price;
+      const category = prod.category || initResult.rows[0].category_id;
+      const sql = 'UPDATE products SET name = $1, price = $2, category_id = $3 WHERE id = $4 RETURNING name, price, category_id'
+      const result = await conn.query(sql, [prodName, prodPrice, category, prod.id]);
+      conn.release();
+      return result.rows[0];
+    } catch (err) {
+      throw new Error(`Cannot Update Product with ID ${id}: ${err}`);
+    }
+  }
+
+  async deleteProduct(id: number):Promise<Product>{
+    try {
+      const conn = await db.connect()
+      const sql = 'DELETE FROM products WHERE id = $1 RETURNING name'
+      const result = await conn.query(sql, [id])
+      conn.release()
+      return result.rows[0]
+      
+    } catch (err) {
+      throw new Error (`Cannot Delete product ${err}`)
     }
   }
 }
