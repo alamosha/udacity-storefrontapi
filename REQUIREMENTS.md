@@ -199,12 +199,104 @@ Successful Response:
 }
 ```
 
---app.get("/products", listProducts);
---app.post("/create_product", create);
-app.get("/product/:id", show);
-app.post("/product/:id/update", update);
-app.delete('/product/:id/delete', delProd)
+## Products
 
+1. Create a new order
+   [POST] `/create_order` [token required]
+
+```bash
+{
+    "user_id": <username id>,
+    "product_id": <product id>,
+    "quantity": <quantity for this product>
+}
 ```
 
+Successful Response:
+
+```bash
+{
+    "id": <item id>,
+    "product_id": <product id>,
+    "order_id": <order id>,
+    "quantity": <quantity>
+}
+```
+
+2. List all orders
+[GET] `/orders` [token required]
+
+Successful Response
+
+```bash
+[
+    {
+        "id": <order id>,
+        "user_id": <user id>,
+        "username": <username>,
+        "order_status": <order status>
+    },
+]
+```
+
+3. List an order by its id
+[GET] `/order/<order id>` [token required]
+
+Successful Response
+
+```bash
+[
+    {
+        "id": <item id>,
+        "order_id": <order id>,
+        "user_id": <user id>,
+        "username": <username>,
+        "product_id": <product id>,
+        "product_name": <product name>,
+        "quantity": <item quantity>,
+        "order_status": <order status>
+    }
+]
+```
+
+4. Add items to an order
+[POST] `/order/<order id>/add` [token required]
+
+```bash
+{
+    "product_id": <product id to add to order>,
+    "quantity": <quantity>
+}
+```
+Successful Response
+
+```bash
+{
+    "id": <item id>,
+    "product_id": <product id>,
+    "order_id": <order id>,
+    "quantity": <item quantity>
+}
+```
+
+5. Edit item inside an order
+[POST] `/order/<order id>/edit` [token required]
+
+```bash
+{
+    "product_id": <product id>,
+    "id": <item id>,
+    "quantity": <item new quantity>
+}
+```
+
+Successful Response
+
+```bash
+{
+    "id": <item id>,
+    "product_id": <product id>,
+    "order_id": <order id>,
+    "quantity": <item new quantity>
+}
 ```
