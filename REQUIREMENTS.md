@@ -20,7 +20,19 @@ These are the notes from a meeting with the frontend developer that describe wha
   }
   ```
 
-- Update current user: [POST] `/user/update` [token required]
+#### Update current user
+[POST] `/user/update` [token required]
+```bash
+{
+    "username": [Username to change Its params],
+    "first_name"?: [New First Name],
+    "lastname"?: [New Second Name],
+    "password"?: [New Password]
+}
+Note: Parameters appended with ? are optional, at least one of them are nessasery to complete the action.
+```
+
+
 - Get all users [GET] `/users` [token required]
 - Get a specific user by its id [GET] `/user/<User ID>` [token required]
 
