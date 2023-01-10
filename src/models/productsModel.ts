@@ -62,8 +62,8 @@ export class ProductModel {
       const prodName = prod.name || initResult.rows[0].name;
       const prodPrice = prod.price || initResult.rows[0].price;
       const category = prod.category || initResult.rows[0].category_id;
-      const sql = 'UPDATE products SET name = $1, price = $2, category_id = $3 WHERE id = $4 RETURNING name, price, category_id'
-      const result = await conn.query(sql, [prodName, prodPrice, category, prod.id]);
+      const sql = 'UPDATE products SET name = $1, price = $2, category_id = $3 WHERE id = $4 RETURNING *'
+      const result = await conn.query(sql, [prodName, prodPrice, category, id]);
       conn.release();
       return result.rows[0];
     } catch (err) {
