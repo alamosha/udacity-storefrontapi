@@ -376,7 +376,7 @@ Successful Response
 ```
 
 4. Create a new category
-[POST] `/create_category`
+   [POST] `/create_category`
 
 ```bash
 {
@@ -394,7 +394,7 @@ Successful Response
 ```
 
 5. Delete category
-[DELETE] `/category/<category id>/delete`
+   [DELETE] `/category/<category id>/delete`
 
 Successful Response
 
@@ -410,3 +410,46 @@ Successful Response
 Order status are already defined as following:
 <1> Active
 <2> Completed
+
+## Database Schema
+
+1. users
+
+```bash
+    id: SERIAL PRIMARY KEY,
+    username: VARCHAR(50) UNIQUE,
+    first_name: VARCHAR(100),
+    last_name: VARCHAR(100),
+    password: VARCHAR(255)
+```
+
+2. orders
+
+```bash
+    id: SERIAL PRIMARY KEY,
+    user_id: INT REFERENCES users(id),
+    status: INT REFERENCES order_status(id)
+
+    order_status table:
+    id: SERIAL PRIMARY KEY,
+    status_name: VARCHAR(50)
+
+    order_products table: `used for many to many relations`
+    id: SERIAL PRIMARY KEY,
+    product_id: INT REFERENCES products(id),
+    order_id: INT REFERENCES orders(id),
+    quantity: INT
+```
+
+3. products
+
+```bash
+    id: SERIAL PRIMARY KEY,
+    name: VARCHAR(100),
+    price: INT,
+    category_id: INT REFERENCES categories(id)
+
+    categories table:
+    id SERIAL: PRIMARY KEY,
+    category_name: VARCHAR(100)
+```
