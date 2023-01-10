@@ -188,19 +188,16 @@ Successful Response:
 }
 ```
 
+6. Delete a product
+   [POST] `/product/<product id>/delete` [token required]
 
+Successful Response:
 
-
-
-
-
-
-
-
-
-
-
-
+```bash
+{
+    "name": <Product name>
+}
+```
 
 --app.get("/products", listProducts);
 --app.post("/create_product", create);
