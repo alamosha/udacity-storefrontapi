@@ -10,4 +10,4 @@ CREATE TABLE products (
     category_id INT REFERENCES categories(id)
 );
 
-INSERT INTO categories (id, category_name) VALUES (1, 'Category 1'), (2, 'Category 2'), (3, 'Category 3');
+INSERT INTO categories (category_name) VALUES ('Category 1'), ('Category 2'), ('Category 3');

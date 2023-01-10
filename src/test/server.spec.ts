@@ -19,7 +19,7 @@ describe("Testing API endpoints", () => {
   });
   describe("Testing Users Endpoints", () => {
     it("test /create_user Endpoint [POST]", async () => {
-      const response = await req
+      const res = await req
         .post("/create_user")
         .set("Content-Type", "application/json")
         .send({
@@ -28,11 +28,11 @@ describe("Testing API endpoints", () => {
           username: "post_user",
           password: "password12",
         });
-      token = response.body.token;
-      expect(response.status).toBe(200);
-      expect(response.body.username.first_name).toBe("Test Post");
-      expect(response.body.username.last_name).toBe("User");
-      expect(response.body.username.username).toBe("post_user");
+      token = res.body.token;
+      expect(res.status).toBe(200);
+      expect(res.body.username.first_name).toBe("Test Post");
+      expect(res.body.username.last_name).toBe("User");
+      expect(res.body.username.username).toBe("post_user");
     });
 
     it("Test /users Endpoint [GET]", async () => {
@@ -59,11 +59,11 @@ describe("Testing API endpoints", () => {
         .set("Content-Type", "application/json")
         .set("Authorization", "Bearer " + token)
         .send({
-          name: "Product from API Test",
+          name: "Product Test",
           price: 199,
-          category: "1",
+          category: 2,
         });
-      expect(res.body.name).toBe("Product from API Test");
+      expect(res.body.name).toBe("Product Test");
     });
 
     it("Testing /products Endpoint [GET]", async () => {
