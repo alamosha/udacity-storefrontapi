@@ -74,7 +74,7 @@ const delProd = async (req: express.Request, res: express.Response) => {
     res.json(del);
   } catch (err) {
     res.status(400);
-    res.json(err);
+    res.send(err);   
   }
 };
 
