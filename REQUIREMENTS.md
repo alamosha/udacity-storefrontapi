@@ -63,9 +63,33 @@ Successful Response:
 
 [GET] `/users` [token required]
 
+Successful Response:
+
+```bash
+[
+    {
+        "id": <user id>,
+        "username": <user name>,
+        "first_name": <user first name>,
+        "last_name": <user last name>
+    }
+]
+```
+
 4. Get a specific user by its id
 
 [GET] `/user/<User ID>` [token required]
+
+Successful Response:
+
+```bash
+{
+    "id": <user id>,
+    "username": <user name>,
+    "first_name": <user first name>,
+    "last_name": <user last name>
+}
+```
 
 5. Delete a user
 
@@ -77,7 +101,39 @@ Successful Response:
 }
 ```
 
-#### Products
+Successful Response:
+
+```bash
+{
+    "username": <Deleted username>,
+    "first_name": <first name>,
+    "last_name": <last name>
+}
+```
+
+## Products
+
+1. Create a new product
+
+[POST] `/create_product` [token required]
+
+```bash
+{
+    "name": <Product name>,
+    "price": <product price>,
+    "category": <product category>
+}
+```
+
+Successful Response:
+
+```bash
+{
+    "name": <Product name>,
+    "price": <product price>,
+    "category": <product category>
+}
+```
 
 - Create a new product
   app.get("/products", listProducts);
