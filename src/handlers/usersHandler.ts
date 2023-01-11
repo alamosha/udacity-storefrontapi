@@ -45,6 +45,14 @@ const createUser = async (req: express.Request, res: express.Response) => {
 
 const showUser = async (req: express.Request, res: express.Response) => {
   try {
+    const token = req.headers.authorization?.split(" ")[1];
+    jwt.verify(token as string, creds.tokenSecret as string);
+  } catch (err) {
+    res.status(401);
+    res.send(`Authentication Error`);
+    return;
+  }
+  try {
     const user = await userModel.show(req.params.id);
     if (user) {
       res.json(user);
